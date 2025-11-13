@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="screen start-screen active" id="start-screen">
+            <div class="form-container">
+                <h1>JavaScript Quiz</h1>
+                <div class="quiz-info">
+                    <p>Test your JavaScript knowledge with these 15 questions</p>
+                </div>
+                <form id="user-form">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" placeholder="Enter your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="Enter your email" required>
+                    </div>
+                    <button type="submit" class="btn primary-btn">Start Quiz</button>
+                </form>
+            </div>
+        </div>
+
+        <!------------Quiz Screen------->
+        <div class="screen quiz-screen" id="quiz-screen">
+            <div class="quiz-header">
+                <div class="user-info">
+                    <span id="user-name"></span>
+                    <span id="user-email"></span>
+                </div>
+                <div class="question-counter">
+                    Question <span id="current-question">1</span>/15
+                </div>
+            </div>
+
+            <!-------Timer bar------>
+            <div class="timer-container">
+                <div class="timer-bar" id="timer-bar"></div>
+                <div class="timer-text" id="timer-text">60s</div>
+            </div>
+
+            <!---------------------Question and options------------>
+            <div class="question-container">
+                <h2 id="question-text"></h2>
+                <div class="options-container" id="options-container">
+                    <!----------Options will be dynamically inserted here---------------->
+                </div>
+            </div>
+
+            <!-------------------------Navigation buttons--------------->
+            <div class="quiz-footer">
+                <button id="exit-btn" class="btn secondary-btn">Exit</button>
+                <button id="next-btn" class="btn primary-btn" disabled>Next</button>
+            </div>
+        </div>
+
+        <!---------------End Screen: Final results----------------------->
+        <div class="screen end-screen" id="end-screen">
+            <div class="result-container">
+                <h1>Quiz Complete</h1>
+                <div class="score-circle" id="score-circle">
+                    <span id="final-score">0/15</span>
+                </div>
+                <div class="analytics" id="analytics">
+                    <!-----------------------Analytics are be dynamically inserted here------------------->
+                </div>
+                <div class="action-buttons">
+                    <button id="see-report-btn" class="btn primary-btn">See Report</button>
+                    <button id="home-btn" class="btn secondary-btn">Home</button>
+                </div>
+            </div>
+        </div>
+        <!----------------Exit Confirmation Screen earlier-------------->
+        <div class="screen exit-screen" id="exit-screen">
+            <div class="exit-container">
+                <h1>Quiz Exited</h1>
+                <div class="exit-score">
+                    <span id="exit-score-text">0/0</span>
+                </div>
+                <p>Oh, But You've exited the quiz early</p>
+                <div class="action-buttons">
+                    <button id="home-from-exit-btn" class="btn secondary-btn">Home</button>
+                </div>
+            </div>
+        </div>
+
+        <!--------------------Report Screen: Dynamic report display---------------------->
+        <div class="screen report-screen" id="report-screen">
+            <div class="report-container">
+                <h1>Quiz Report</h1>
+                <div class="report-summary">
+                    <div class="score-circle" id="report-score-circle">
+                        <span id="report-score">0/15</span>
+                    </div>
+                    <div class="report-stats" id="report-stats">
+                        <!----------------------Stats are dynamically inserted here------------->
+                    </div>
+                </div>
+                <div class="questions-review" id="questions-review">
+                    <!---------------Questions and answers are dynamically inserted here---------->
+                </div>
+                <div class="action-buttons">
+                    <button id="home-from-report-btn" class="btn secondary-btn">Home</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="assets/js/questions.js"></script>
+    <script type="module" src="assets/js/timer.js"></script>
+    <script type="module" src="assets/js/app.js"></script>
+</body>
+</html>
