@@ -266,10 +266,9 @@ class QuizApp {
         this.nextQuestion();
     }
 
-    // Handle when time warning is triggered (15 seconds left)
+    // Handle when time warning is triggered (10 seconds left)
     handleTimeWarning() {
         // The timer bar color change is handled in the timer class
-        // No additional action needed here
     }
 
     // Move to the next question

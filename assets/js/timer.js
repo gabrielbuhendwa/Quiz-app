@@ -69,11 +69,11 @@ export class Timer {
             // Set the width of the timer bar
             timerBar.style.width = `${percentage}%`;
             
-            // Add warning class if time is running out (15 seconds or less)
+            // Add warning class if time is running out (10 seconds or less)
             if (this.remainingTime <= this.warningThreshold) {
                 timerBar.classList.add('warning');
             } else {
-                // Remove warning class if there's more than 15 seconds left
+                // Remove warning class if there's more than 10 seconds left
                 timerBar.classList.remove('warning');
             }
         }
