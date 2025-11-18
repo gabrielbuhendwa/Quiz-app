@@ -1,120 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz App</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quiz App</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <!-- html2canvas CDN for export/share -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 </head>
 <body>
-    <div class="quiz-container">
-        <div class="screen start-screen active" id="start-screen">
-            <div class="form-container">
-                <h1>JavaScript Quiz</h1>
-                <div class="quiz-info">
-                    <p>Test your JavaScript knowledge with these 15 questions</p>
-                </div>
-                <form id="user-form">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" placeholder="Enter your name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" placeholder="Enter your email" required>
-                    </div>
-                    <button type="submit" class="btn primary-btn">Start Quiz</button>
-                </form>
-            </div>
-        </div>
-
-        <!------------Quiz Screen------->
-        <div class="screen quiz-screen" id="quiz-screen">
-            <div class="quiz-header">
-                <div class="user-info">
-                    <span id="user-name"></span>
-                    <span id="user-email"></span>
-                </div>
-                <div class="question-counter">
-                    Question <span id="current-question">1</span>/15
-                </div>
-            </div>
-
-            <!-------Timer bar------>
-            <div class="timer-container">
-                <div class="timer-bar" id="timer-bar"></div>
-                <div class="timer-text" id="timer-text">60s</div>
-            </div>
-
-            <!---------------------Question and options------------>
-            <div class="question-container">
-                <h2 id="question-text"></h2>
-                <div class="options-container" id="options-container">
-                    <!----------Options will be dynamically inserted here---------------->
-                </div>
-            </div>
-
-            <!-------------------------Navigation buttons--------------->
-            <div class="quiz-footer">
-                <button id="exit-btn" class="btn secondary-btn">Exit</button>
-                <button id="next-btn" class="btn primary-btn" disabled>Next</button>
-            </div>
-        </div>
-
-        <!---------------End Screen: Final results----------------------->
-        <div class="screen end-screen" id="end-screen">
-            <div class="result-container">
-                <h1>Quiz Complete</h1>
-                <div class="score-circle" id="score-circle">
-                    <span id="final-score">0/15</span>
-                </div>
-                <div class="analytics" id="analytics">
-                    <!-----------------------Analytics are be dynamically inserted here------------------->
-                </div>
-                <div class="action-buttons">
-                    <button id="see-report-btn" class="btn primary-btn">See Report</button>
-                    <button id="home-btn" class="btn secondary-btn">Home</button>
-                </div>
-            </div>
-        </div>
-        <!----------------Exit Confirmation Screen earlier-------------->
-        <div class="screen exit-screen" id="exit-screen">
-            <div class="exit-container">
-                <h1>Quiz Exited</h1>
-                <div class="exit-score">
-                    <span id="exit-score-text">0/0</span>
-                </div>
-                <p>Oh, But you've exited the quiz early 🤦‍♂️</p>
-                <div class="action-buttons">
-                    <button id="home-from-exit-btn" class="btn secondary-btn">Home</button>
-                </div>
-            </div>
-        </div>
-
-        <!--------------------Report Screen: Dynamic report display---------------------->
-        <div class="screen report-screen" id="report-screen">
-            <div class="report-container">
-                <h1>Quiz Report</h1>
-                <div class="report-summary">
-                    <div class="score-circle" id="report-score-circle">
-                        <span id="report-score">0/15</span>
-                    </div>
-                    <div class="report-stats" id="report-stats">
-                        <!----------------------Stats are dynamically inserted here------------->
-                    </div>
-                </div>
-                <div class="questions-review" id="questions-review">
-                    <!---------------Questions and answers are dynamically inserted here---------->
-                </div>
-                <div class="action-buttons">
-                    <button id="home-from-report-btn" class="btn secondary-btn">Home</button>
-                </div>
-            </div>
-        </div>
+  <header class="topbar">
+    <h1>Quiz App</h1>
+    <div class="toolbar">
+      <button id="theme-toggle" class="toggle-btn" aria-pressed="false">🌙</button>
+      <button id="clear-progress" class="btn small">Clear saved</button>
     </div>
+  </header>
 
-    <script type="module" src="assets/js/questions.js"></script>
-    <script type="module" src="assets/js/timer.js"></script>
-    <script type="module" src="assets/js/app.js"></script>
+  <!-- Start screen -->
+  <main>
+    <section id="start-screen" class="screen active">
+      <div class="card form-card">
+        <h2>Start Quiz</h2>
+        <form id="user-form">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input id="name" type="text" placeholder="Enter your name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input id="email" type="email" placeholder="Enter your email" required />
+          </div>
+          <button type="submit" class="btn">Start Quiz</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Quiz screen -->
+    <section id="quiz-screen" class="screen">
+      <div class="card quiz-card">
+        <div class="quiz-header">
+          <div>
+            <div id="user-name" class="muted"></div>
+            <div id="user-email" class="muted small"></div>
+          </div>
+          <div class="meta">
+            <div>Q <span id="current-question">1</span> / <span id="total-questions">15</span></div>
+            <div id="timer-container" class="muted small"></div>
+          </div>
+        </div>
+
+        <h3 id="question-text" class="question"></h3>
+
+        <div id="options-container" class="options"></div>
+
+        <div class="controls">
+          <button id="prev-btn" class="btn small">Prev</button>
+          <button id="next-btn" class="btn small" disabled>Next</button>
+          <button id="exit-btn" class="btn small ghost">Exit</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- End screen -->
+    <section id="end-screen" class="screen">
+      <div class="card result-card" id="final-result">
+        <div class="result-top">
+          <div id="score-circle" class="score-circle">0</div>
+          <div class="result-meta">
+            <h2>Quiz Finished</h2>
+            <p id="final-score">0 / 15</p>
+            <p id="pass-label" class="muted"></p>
+          </div>
+        </div>
+
+        <div id="analytics" class="analytics"></div>
+
+        <div class="result-actions">
+          <button id="see-report-btn" class="btn">View Report</button>
+          <button id="download-result" class="btn small">Download PNG</button>
+          <button id="share-result" class="btn small">Share</button>
+          <button id="home-btn" class="btn small ghost">Home</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Exit screen (partial) -->
+    <section id="exit-screen" class="screen">
+      <div class="card">
+        <h2>Quiz Paused / Exited</h2>
+        <p>Score: <span id="exit-score-text">0/0</span></p>
+        <div class="result-actions">
+          <button id="home-from-exit-btn" class="btn">Home</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Report screen (detailed review) -->
+    <section id="report-screen" class="screen">
+      <div class="card">
+        <div class="report-top">
+          <div class="score-block">
+            <div id="report-score-circle" class="score-circle small">0</div>
+            <div id="report-score" class="muted">0 / 15</div>
+          </div>
+          <div id="report-stats" class="report-stats"></div>
+        </div>
+
+        <div id="questions-review" class="questions-review"></div>
+
+        <div class="result-actions">
+          <button id="home-from-report-btn" class="btn">Home</button>
+          <button id="download-report" class="btn small">Download Report PNG</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer muted small">Quiz App • Local only (no server) • Randomization & theme saved locally</footer>
+
+  <!-- Core scripts -->
+  <script type="module" src="assets/js/app.js"></script>
+  <script type="module" src="assets/js/questions.js"></script>
+  <script src="assets/js/timer.js"></script>
 </body>
 </html>
