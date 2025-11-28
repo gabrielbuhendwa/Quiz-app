@@ -30,7 +30,7 @@ export class Timer {
             // Update the display to show the new time
             this.updateDisplay();
             
-            // Check if warning threshold is reached (15 seconds left)
+            // Check if warning threshold is reached (10 seconds left)
             if (this.remainingTime === this.warningThreshold && this.onWarning) {
                 // Call the warning callback function
                 this.onWarning();

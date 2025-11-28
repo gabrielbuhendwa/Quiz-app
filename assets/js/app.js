@@ -243,7 +243,7 @@ class QuizApp {
             this.timer.stop();
         }
         
-        // Create a new timer with 60 seconds duration
+        // Create a new timer with 50 seconds duration
         this.timer = new Timer(
             50, // Duration in seconds
             () => {
@@ -251,7 +251,7 @@ class QuizApp {
                 this.handleTimeUp();
             },
             () => {
-                // Callback function when warning threshold is reached (15 seconds)
+                // Callback function when warning threshold is reached (10 seconds)
                 this.handleTimeWarning();
             }
         );
@@ -326,7 +326,7 @@ class QuizApp {
         this.loadQuestion();
     }
 
-    // Exit the quiz early
+// Exit the quiz early
 exitQuiz() {
     // Stop the timer
     if (this.timer) {
